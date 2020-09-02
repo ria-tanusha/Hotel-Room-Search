@@ -18,13 +18,13 @@ import com.hotel.room.reservation.model.view.RoomSearchViewResponse;
 public class ExceptionHandlerControllerAdvice {
 
 	@ExceptionHandler(RoomTypeNotFoundException.class)
-	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public ResponseEntity<Response<RoomSearchViewResponse>> handleRoomType(final RoomTypeNotFoundException ex) {
 
 		Response response = new Response();
 		response.setMessage(ex.toString());
 		response.setSuccess(false);
-		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
