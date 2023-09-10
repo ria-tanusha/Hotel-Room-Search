@@ -1,0 +1,64 @@
+
+CREATE TABLE 'hotel_room_reservation_schema'.'room'
+('room_number' INT(11) NOT NULL AUTO_INCREMENT,
+'room_type' VARCHAR(45) NOT NULL,
+'room_features' VARCHAR(45) NOT NULL,
+'room_rate' DECIMAL(19 , 4 ) NOT NULL,
+PRIMARY KEY ('room_number')
+);
+===>
+CREATE TABLE room
+(room_number INT(11) NOT NULL AUTO_INCREMENT,
+room_type VARCHAR(45) NOT NULL,
+room_features  VARCHAR(45) NOT NULL,
+room_rate DECIMAL(19 , 4 ) NOT NULL,
+PRIMARY KEY (room_number)
+);
+
+CREATE TABLE 'hotel_room_reservation_schema'.'guest'
+('guest_id' INT(11) NOT NULL AUTO_INCREMENT,
+'identifier_number' VARCHAR(45) NOT NULL,
+'first_name' VARCHAR(45) NOT NULL,
+'last_name' VARCHAR(45) NOT NULL,
+'phone' VARCHAR(45) NOT NULL,
+'age' INT(5) NOT NULL,
+PRIMARY KEY ('guest_id')
+);
+===>
+CREATE TABLE guest
+(guest_id INT(11) NOT NULL AUTO_INCREMENT,
+identifier_number VARCHAR(45) NOT NULL,
+first_name VARCHAR(45) NOT NULL,
+last_name VARCHAR(45) NOT NULL,
+phone VARCHAR(45) NOT NULL,
+age INT(5) NOT NULL,
+PRIMARY KEY (guest_id)
+);
+
+CREATE TABLE 'hotel_room_reservation_schema'.'reservation' (
+    'reservation_id' INT(11) NOT NULL AUTO_INCREMENT,
+    'check_in_date' VARCHAR(45) NOT NULL,
+    'check_out_date' VARCHAR(45) NOT NULL,
+    'guest_id' INT(11) NULL,
+    'guest_count' INT(11) NULL,
+    'active' TINYINT NOT NULL,
+    PRIMARY KEY ('reservation_id'),
+	INDEX 'guest_id_idx' ('guest_id' ASC) VISIBLE,
+	CONSTRAINT 'guest_id'
+    FOREIGN KEY ('guest_id') 
+	REFERENCES 'hotel_room_reservation_schema'.'guest'(guest_id)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+);
+
+CREATE TABLE 'hotel_room_reservation_schema'.'roomsReserved' (
+    room_booked_id INT(11) NOT NULL AUTO_INCREMENT,
+    room_type VARCHAR(45)) ,
+    reserved_date VARCHAR(45) NOT NULL,
+    rooms_booked VARCHAR(45) NOT NULL,
+    reservation_id INT(11),
+    active boolean,
+	CONSTRAINT fk_category
+    PRIMARY KEY (room_booked_id),
+    FOREIGN KEY (reservation_id) REFERENCES Reservation(reservation_id)
+);
