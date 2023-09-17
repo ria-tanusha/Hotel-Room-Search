@@ -1,0 +1,47 @@
+create database hotel_room_reservation_schema;
+show databases;
+use hotel_room_reservation_schema;
+
+CREATE TABLE room
+(room_number INT(11) NOT NULL AUTO_INCREMENT,
+room_type VARCHAR(45) NOT NULL,
+room_features  VARCHAR(45) NOT NULL,
+room_rate DECIMAL(19 , 4 ) NOT NULL,
+PRIMARY KEY (room_number)
+);
+
+CREATE TABLE guest
+(guest_id INT(11) NOT NULL AUTO_INCREMENT,
+identifier_number VARCHAR(45) NOT NULL,
+first_name VARCHAR(45) NOT NULL,
+last_name VARCHAR(45) NOT NULL,
+phone VARCHAR(45) NOT NULL,
+age INT(5) NOT NULL,
+PRIMARY KEY (guest_id)
+);
+
+CREATE TABLE reservation (
+    reservation_id INT(11) NOT NULL,
+    check_in_date DATE NOT NULL,
+    check_out_date DATE NOT NULL,
+    guest_id INT(11),
+    guest_count INT(11),
+    active boolean,
+	CONSTRAINT fk_category
+    PRIMARY KEY (reservation_id),
+    FOREIGN KEY (guest_id) REFERENCES guest(guest_id)
+);
+
+
+CREATE TABLE roomsReserved(
+    room_booked_id INT(11) NOT NULL AUTO_INCREMENT,
+    room_type VARCHAR(45),
+    reserved_date VARCHAR(45) NOT NULL,
+    rooms_booked VARCHAR(45) NOT NULL,
+    reservation_id INT(11),
+    active boolean,
+	CONSTRAINT fk_category
+    PRIMARY KEY (room_booked_id),
+    FOREIGN KEY (reservation_id) REFERENCES reservation(reservation_id)
+);
+
